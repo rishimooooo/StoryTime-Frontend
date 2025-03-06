@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardHorizontal } from "@/components/ui/card";
+import { CardHorizontal } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Search, Filter, Heart } from "lucide-react";
+import { Filter } from "lucide-react";
 
 const stories = [
     {

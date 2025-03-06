@@ -1,17 +1,6 @@
 "use client"
 
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card"
 import { LoginForm } from "@/components/ui/login-form"
 import { useRouter } from "next/navigation"
 

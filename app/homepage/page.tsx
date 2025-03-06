@@ -1,12 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 import ExplorePage from "../../components/exploreComponent"
 import { Navbar } from "@/components/Navbar"
 
 export default function HomePage() {
-    const route = useRouter()
 
     return (
         <main className="min-h-screen bg-white">

@@ -6,11 +6,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import UserStories from "@/components/userStories"
-import { useState } from "react"
 
 export default function ProfilePage() {
 
-    const [previewUrl, setPreviewUrl] = useState("/profile-picture-placeholder.svg")
+    const previewUrl = "/profile-picture-placeholder.svg"
 
     return (
         <main className="min-h-screen bg-white">
