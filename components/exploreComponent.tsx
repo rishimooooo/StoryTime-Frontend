@@ -61,7 +61,6 @@ const authors = [
 
 export default function ExplorePage() {
     const [activeTab, setActiveTab] = useState<"stories" | "authors">("stories");
-    const router = useRouter();
 
 
 
