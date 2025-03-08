@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { CardHorizontal } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Filter } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const stories = [
     {
@@ -60,6 +61,9 @@ const authors = [
 
 export default function ExplorePage() {
     const [activeTab, setActiveTab] = useState<"stories" | "authors">("stories");
+    const router = useRouter();
+
+
 
     return (
         <main className="min-h-screen px-6 py-4">
@@ -93,6 +97,10 @@ export default function ExplorePage() {
 }
 
 function StoriesList() {
+    const router = useRouter();
+    const handleNavBook = () => {
+        router.push("/book");
+    }
     return (
         <div className="grid gap-6">
             {stories.map((story) => (
@@ -104,7 +112,7 @@ function StoriesList() {
                             {story.wordCount.toLocaleString()} words - {story.chapters} Chapters
                         </p>
                         <p className="text-m text-gray-700">by {story.author}</p>
-                        <Button className="mt-2">Read Now</Button>
+                        <Button onClick={handleNavBook} className="mt-2">Read Now</Button>
                     </div>
 
                     <div className="w-128 h-58 flex-shrink-0 bg-gray-300 rounded-lg overflow-hidden">
@@ -123,6 +131,11 @@ function StoriesList() {
 
 
 function AuthorsList() {
+    const router = useRouter();
+    const handleNavAuthor = () => {
+        router.push("/author");
+    }
+
     return (
         <div className="grid gap-6">
             {authors.map((author) => (
@@ -136,7 +149,7 @@ function AuthorsList() {
                     </div>
                     <div className="flex flex-col gap-2">
                         <Button size="lg" className="w-40">Follow</Button>
-                        <Button variant="outline" size="lg" className="w-40">
+                        <Button onClick={handleNavAuthor} variant="outline" size="lg" className="w-40">
                             Search
                         </Button>
                     </div>

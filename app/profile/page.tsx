@@ -24,7 +24,7 @@ export default function ProfilePage() {
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                         </div>
-                        <Button variant="link" className="mb-2">Change Profile Picture</Button>
+                        <Button variant="link">Change Profile Picture</Button>
                         <h1 className="text-sm text-gray-600">Choose a picture to show</h1>
                     </div>
 
@@ -51,13 +51,14 @@ export default function ProfilePage() {
                                 </div>
                             </CardContent>
 
-                            <CardFooter className="pt-4">
+                            <CardFooter className="pt-4 flex flex-col gap-5">
                                 <Button className="w-full py-3 text-lg">Update Accout</Button>
+                                <Button className="w-full py-3 text-lg">Sign Out</Button>
                             </CardFooter>
                         </Card>
                     </div>
                 </div>
-                <div>
+                <div className="p-10">
                     <h1 className="text-4xl font-bold pt-10 pb-4">Your Stories</h1>
                     <UserStories />
                 </div>

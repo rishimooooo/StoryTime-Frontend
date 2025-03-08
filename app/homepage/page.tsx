@@ -23,8 +23,8 @@ export default function HomePage() {
                         Start a Book
                     </Button>
                 </div>
-                <div className="h-px bg-gray-300 w-full my-4" />
-                <div className="text-black">
+                <div className="mt-10 h-px bg-gray-300 my-4 max-w-screen-2xl mx-auto" />
+                <div className="pt-10 text-black">
                     <ExplorePage></ExplorePage>
                 </div>
             </div>
