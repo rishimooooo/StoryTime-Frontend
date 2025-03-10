@@ -3,8 +3,13 @@
 import { Button } from "@/components/ui/button"
 import ExplorePage from "../../components/exploreComponent"
 import { Navbar } from "@/components/Navbar"
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+
+    const router = useRouter();
+
+    const handleNavCreate = () => router.push("/create");
 
     return (
         <main className="min-h-screen bg-white">
@@ -19,7 +24,7 @@ export default function HomePage() {
                             would you like to start your story?
                         </div>
                     </div>
-                    <Button className="text-xl">
+                    <Button onClick={handleNavCreate} className="text-xl">
                         Start a Book
                     </Button>
                 </div>

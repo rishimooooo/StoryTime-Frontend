@@ -58,6 +58,10 @@ const collabs = [
 
 export default function ContentComponent() {
     const [activeTab, setActiveTab] = useState<"read" | "collab" | "leaderboard">("read");
+    const router = useRouter();
+    const handleNavCollab = () => {
+        router.push("/collab");
+    }
 
     return (
         <main className="min-h-screen px-6 py-4">
@@ -82,6 +86,9 @@ export default function ContentComponent() {
                     <Button variant="outline" size="icon">
                         <Filter size={20} />
                     </Button>
+                    {activeTab === "collab" && <Button onClick={handleNavCollab}>
+                        Create Chapter
+                    </Button>}
                 </div>
             </nav>
 

@@ -73,7 +73,7 @@ export default function ReadPage() {
                 <h2 className="pl-2 text-2xl">Chapter 1</h2>
                 <div className="mt-10 h-px bg-gray-300 my-4 max-w-screen-2xl mx-auto" />
 
-                <div className="max-w-8xl h-[600px] overflow-y-auto p-6 border rounded-lg bg-white shadow-lg">
+                <div className="h-full sm:h-[calc(100vh-28rem)] md:h-[calc(100vh-24rem)] lg:h-[calc(100vh-20rem)] xl:h-[calc(100vh-19rem)] overflow-y-auto p-6 border rounded-lg bg-white shadow-lg">
                     <p className="text-md whitespace-pre-line">{fullStory}</p>
                 </div>
             </div>

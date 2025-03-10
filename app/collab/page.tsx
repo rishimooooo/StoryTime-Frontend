@@ -9,9 +9,16 @@ import Italic from "@tiptap/extension-italic";
 import Underline from "@tiptap/extension-underline";
 import Heading from "@tiptap/extension-heading";
 import { X, Lightbulb } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function CollabPage() {
-    const [isPlotBotOpen, setIsPlotBotOpen] = useState(false); // Toggle state
+    const [isPlotBotOpen, setIsPlotBotOpen] = useState(false);
+    const router = useRouter();
+
+    const handleSave = () => {
+        router.push("/book");
+    };
 
     const editor = useEditor({
         extensions: [StarterKit, Bold, Italic, Underline, Heading],
@@ -43,6 +50,7 @@ export default function CollabPage() {
                                 </div>
                             ))}
                         </div>
+                        <Button onClick={handleSave} className="mt-2"> Save </Button>
                     </div>
                 </div>
             </div>
@@ -51,7 +59,7 @@ export default function CollabPage() {
 
             <div className={`flex ${isPlotBotOpen ? "gap-6" : ""} p-6`}>
                 <div className={`border rounded-lg bg-white shadow-lg p-6 ${isPlotBotOpen ? "w-3/4" : "w-full"}`}>
-                    <div className="h-[600px] overflow-y-auto">
+                    <div className="h-full sm:h-[calc(100vh-28rem)] md:h-[calc(100vh-24rem)] lg:h-[calc(100vh-20rem)] xl:h-[calc(100vh-19rem)] overflow-y-auto">
                         <EditorContent editor={editor} className="h-full text-md" />
                     </div>
                 </div>
@@ -63,7 +71,7 @@ export default function CollabPage() {
                             <X onClick={togglePlotBot} />
                         </div>
                         <div className="flex items-center gap-2">
-                            <input className="flex-1 p-2 border rounded-md" placeholder="Enter Command" />
+                            <input className="flex-1 p-2 border bg-gray-400 rounded-md" placeholder="Enter Command" />
                             <button className="p-2 bg-gray-500 text-white rounded-md">➤</button>
                         </div>
                     </div>

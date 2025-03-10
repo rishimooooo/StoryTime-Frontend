@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CardHorizontal } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Filter } from "lucide-react";
+import { Filter, ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const stories = [
@@ -111,7 +111,18 @@ function StoriesList() {
                             {story.wordCount.toLocaleString()} words - {story.chapters} Chapters
                         </p>
                         <p className="text-m text-gray-700">by {story.author}</p>
-                        <Button onClick={handleNavBook} className="mt-2">Read Now</Button>
+                        <div className="flex gap-1.5">
+                            <Button onClick={handleNavBook} className="mt-2">Read Now</Button>
+                            <div className="flex flex-col items-center">
+                                <ArrowBigUp size={30} className="rounded-full bg-gray-400 mt-2" />
+                                <h1>123</h1>
+                            </div>
+                            <div className="flex flex-col items-center">
+                                <ArrowBigDown size={30} className="mt-2" />
+                                <h1>67</h1>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div className="w-128 h-58 flex-shrink-0 bg-gray-300 rounded-lg overflow-hidden">
