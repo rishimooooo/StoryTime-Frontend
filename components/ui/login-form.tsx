@@ -10,13 +10,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { login } from "@/api/login";
+import React, { useState } from "react";
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
     const router = useRouter();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
-    const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        router.push("/homepage");
+        try {
+            await login(email, password);
+            router.push("/homepage");
+        } catch (error) {
+            console.error("Login failed", error);
+            setError("Login failed. Please check your credentials and try again.");
+        }
     };
 
     return (
@@ -31,7 +42,14 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                     <form className="flex flex-col gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" placeholder="m@example.com" required />
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="m@example.com"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                         <div className="grid gap-2">
                             <div className="flex items-center">
@@ -40,8 +58,15 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                                     Forgot your password?
                                 </a>
                             </div>
-                            <Input id="password" type="password" required />
+                            <Input
+                                id="password"
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
                         <Button onClick={handleLogin} type="button" className="w-full">
                             Login
                         </Button>

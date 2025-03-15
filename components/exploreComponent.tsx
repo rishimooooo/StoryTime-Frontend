@@ -62,32 +62,34 @@ const authors = [
 export default function ExplorePage() {
     const [activeTab, setActiveTab] = useState<"stories" | "authors">("stories");
 
-
-
     return (
-        <main className="min-h-screen px-6 py-4">
+        <main className="min-h-screen px-4 py-4 md:px-6">
 
-            <nav className="flex items-center justify-between pb-4">
-                <div className="flex">
-                    <h1 className="text-2xl font-bold mr-5">Explore •</h1>
+            {/* Navigation */}
+            <nav className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 gap-4">
+                <div className="flex flex-col md:flex-row md:items-center">
+                    <h1 className="text-2xl font-bold mb-2 md:mb-0 md:mr-5">Explore •</h1>
                     <ToggleGroup
                         type="single"
                         value={activeTab}
                         onValueChange={(value) => setActiveTab(value as "stories" | "authors")}
+                        className="flex"
                     >
                         <ToggleGroupItem value="stories">Stories</ToggleGroupItem>
                         <ToggleGroupItem value="authors">Authors</ToggleGroupItem>
                     </ToggleGroup>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <Input placeholder="Search" className="w-64" />
+                {/* Search & Filter */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                    <Input placeholder="Search" className="flex-1 w-full sm:w-64" />
                     <Button variant="outline" size="icon">
                         <Filter size={20} />
                     </Button>
                 </div>
             </nav>
 
+            {/* Content Section */}
             <section className="mt-6">
                 {activeTab === "stories" ? <StoriesList /> : <AuthorsList />}
             </section>
@@ -95,42 +97,39 @@ export default function ExplorePage() {
     );
 }
 
+/* Stories List */
 function StoriesList() {
     const router = useRouter();
     const handleNavBook = () => {
         router.push("/book");
-    }
+    };
+
     return (
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {stories.map((story) => (
-                <CardHorizontal key={story.id} className="p-6 flex items-center justify-between">
-                    <div className="flex-1 pr-4">
-                        <p className="text-m text-gray-500">{story.genre}</p>
-                        <h2 className="text-xl font-semibold">{story.title}</h2>
-                        <p className="text-m text-gray-500">
+                <CardHorizontal key={story.id} className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                    <div className="flex-1 pr-0 sm:pr-4">
+                        <p className="text-sm text-gray-500">{story.genre}</p>
+                        <h2 className="text-lg sm:text-xl font-semibold">{story.title}</h2>
+                        <p className="text-sm text-gray-500">
                             {story.wordCount.toLocaleString()} words - {story.chapters} Chapters
                         </p>
-                        <p className="text-m text-gray-700">by {story.author}</p>
-                        <div className="flex gap-1.5">
-                            <Button onClick={handleNavBook} className="mt-2">Read Now</Button>
-                            <div className="flex flex-col items-center">
-                                <ArrowBigUp size={30} className="rounded-full bg-gray-400 mt-2" />
-                                <h1>123</h1>
+                        <p className="text-sm text-gray-700">by {story.author}</p>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            <Button onClick={handleNavBook}>Read Now</Button>
+                            <div className="flex flex-row sm:flex-col items-center">
+                                <ArrowBigUp size={24} className="rounded-full bg-gray-400 p-1" />
+                                <span className="text-sm">123</span>
                             </div>
-                            <div className="flex flex-col items-center">
-                                <ArrowBigDown size={30} className="mt-2" />
-                                <h1>67</h1>
+                            <div className="flex flex-row sm:flex-col items-center">
+                                <ArrowBigDown size={24} className="p-1" />
+                                <span className="text-sm">67</span>
                             </div>
-
                         </div>
                     </div>
 
-                    <div className="w-128 h-58 flex-shrink-0 bg-gray-300 rounded-lg overflow-hidden">
-                        <img
-                            src={story.coverImage}
-                            alt={story.title}
-                            className="w-full h-full object-cover"
-                        />
+                    <div className="w-full sm:w-40 h-40 sm:h-58 bg-gray-300 rounded-lg overflow-hidden mt-4 sm:mt-0">
+                        <img src={story.coverImage} alt={story.title} className="w-full h-full object-cover" />
                     </div>
                 </CardHorizontal>
             ))}
@@ -138,28 +137,29 @@ function StoriesList() {
     );
 }
 
-
-
+/* Authors List */
 function AuthorsList() {
     const router = useRouter();
     const handleNavAuthor = () => {
         router.push("/author");
-    }
+    };
 
     return (
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {authors.map((author) => (
-                <CardHorizontal key={author.id} className="p-4 flex items-center justify-between gap-4">
-                    <div className="w-40 h-40 bg-gray-300 rounded-full overflow-hidden">
+                <CardHorizontal key={author.id} className="p-4 flex flex-col sm:flex-row sm:items-start gap-4">
+                    <div className="w-24 h-24 sm:w-40 sm:h-40 bg-gray-300 rounded-full overflow-hidden mx-auto sm:mx-0">
                         <img src={author.profileImage} alt={author.name} className="w-full h-full object-cover" />
                     </div>
-                    <div className="flex-1">
-                        <h2 className="text-xl font-semibold">{author.name}</h2>
-                        <p className="text-m text-gray-500">{author.bio}</p>
+
+                    <div className="flex-1 text-center text-left sm:text-left">
+                        <h2 className="text-lg sm:text-xl font-semibold">{author.name}</h2>
+                        <p className="text-sm text-gray-500">{author.bio}</p>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <Button size="lg" className="w-40">Follow</Button>
-                        <Button onClick={handleNavAuthor} variant="outline" size="lg" className="w-40">
+
+                    <div className="flex flex-col sm:flex-row gap-2 mt-2 sm:mt-0">
+                        <Button size="lg" className="w-full sm:w-32">Follow</Button>
+                        <Button onClick={handleNavAuthor} variant="outline" size="lg" className="w-full sm:w-32">
                             Search
                         </Button>
                     </div>
