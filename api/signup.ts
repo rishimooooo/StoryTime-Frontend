@@ -1,28 +1,38 @@
-import apiClient from './axiosInstance';
+import apiClient from "./axiosInstance";
 
 interface SignUpResponse {
-    token: string;
+  token: string;
 }
 
-export const signup = async (name: string, email: string, password: string, profilePicture: File | null): Promise<void> => {
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    if (profilePicture) {
-        formData.append('profilePicture', profilePicture);
-    }
+export const signup = async (
+  name: string,
+  email: string,
+  password: string,
+  profilePicture: string | null // Change File to string (URL)
+): Promise<void> => {
+  const requestBody = {
+    name,
+    email,
+    password,
+    profilePicture, // If you need file upload, do it separately
+  };
 
-    try {
-        const response = await apiClient.post<SignUpResponse>('/auth/signup', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        const { token } = response.data;
-        localStorage.setItem('authToken', token);
-    } catch (error) {
-        console.error('Sign-up failed', error);
-        throw error;
-    }
+  // 🛑 Log the request payload
+  console.log("📤 Sending Signup Data:", requestBody);
+
+  try {
+    const response = await apiClient.post<SignUpResponse>(
+      "/api/users/register", // ✅ Correct path
+      requestBody,
+      {
+        headers: { "Content-Type": "application/json" }, // Ensure JSON headers
+      }
+    );
+
+    const { token } = response.data;
+    localStorage.setItem("authToken", token);
+  } catch (error) {
+    console.error("❌ Sign-up failed", error.response?.data || error.message);
+    throw error;
+  }
 };
