@@ -1,3 +1,4 @@
+import axios from "axios";
 import apiClient from "./axiosInstance";
 
 interface LoginResponse {
@@ -12,7 +13,7 @@ export const login = async (email: string, password: string): Promise<void> => {
     console.log("📤 Sending Login Data:", requestBody);
 
     const response = await apiClient.post<LoginResponse>(
-      "/api/users/login", // ✅ Corrected endpoint
+      "/api/users/login", // ✅ Ensure correct endpoint
       requestBody,
       {
         headers: { "Content-Type": "application/json" }, // Ensure JSON headers
@@ -22,7 +23,11 @@ export const login = async (email: string, password: string): Promise<void> => {
     const { token } = response.data;
     localStorage.setItem("authToken", token);
   } catch (error) {
-    console.error("❌ Login failed", error.response?.data || error.message);
+    if (axios.isAxiosError(error)) {
+      console.error("❌ Login failed:", error.response?.data || error.message);
+    } else {
+      console.error("❌ Unexpected error:", error);
+    }
     throw error;
   }
 };
