@@ -1,5 +1,5 @@
-import axios from "axios";
 import apiClient from "./axiosInstance";
+import type { AxiosError } from "axios";
 
 interface LoginResponse {
   token: string;
@@ -9,24 +9,26 @@ export const login = async (email: string, password: string): Promise<void> => {
   try {
     const requestBody = { email, password };
 
-    // 🛑 Log the request payload
     console.log("📤 Sending Login Data:", requestBody);
 
     const response = await apiClient.post<LoginResponse>(
-      "/api/users/login", // ✅ Ensure correct endpoint
+      "/api/users/login",
       requestBody,
       {
-        headers: { "Content-Type": "application/json" }, // Ensure JSON headers
+        headers: { "Content-Type": "application/json" },
       }
     );
 
     const { token } = response.data;
     localStorage.setItem("authToken", token);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("❌ Login failed:", error.response?.data || error.message);
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError;
+    if (axiosError?.isAxiosError) {
+      console.error("❌ Login failed:", axiosError.message);
+    } else if (error instanceof Error) {
+      console.error("❌ Unexpected error:", error.message);
     } else {
-      console.error("❌ Unexpected error:", error);
+      console.error("❌ Unknown error occurred");
     }
     throw error;
   }
